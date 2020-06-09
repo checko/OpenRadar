@@ -9,12 +9,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ==============================================================================
+import sys
+from pathlib import Path
+
+#sys.path.insert(0,str(Path().resolve().parent.parent))
+sys.path.insert(0,"C:\\test\\OpenRadar")
+print(sys.path)
 
 import numpy as np
 import mmwave.dsp as dsp
 import mmwave.clustering as clu
 from mmwave.dataloader import DCA1000
-from demo.Lab0008.lab0008_visualize import ellipse_visualize
+#from demo.Lab0008.lab0008_visualize import ellipse_visualize
 
 import matplotlib.pyplot as plt
 
@@ -220,10 +226,10 @@ if __name__ == '__main__':
                 axes[1].clear()
 
 
-        elif plot3Dscatter:
-            if singFrameView:
-                ellipse_visualize(fig, cluster, detObj2D_f[:, 3:6])
-            else:
-                ellipse_visualize(fig, cluster, detObj2D_f[:, 3:6])
-                plt.pause(0.1)
-                plt.clf()
+#        elif plot3Dscatter:
+#            if singFrameView:
+#                ellipse_visualize(fig, cluster, detObj2D_f[:, 3:6])
+#            else:
+#                ellipse_visualize(fig, cluster, detObj2D_f[:, 3:6])
+#                plt.pause(0.1)
+#                plt.clf()
