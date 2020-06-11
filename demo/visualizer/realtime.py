@@ -30,10 +30,10 @@ plt.close('all')
 loadData = True
 
 numFrames = 300
-numADCSamples = 128
-numTxAntennas = 3
+numADCSamples = 256
+numTxAntennas = 2
 numRxAntennas = 4
-numLoopsPerFrame = 128
+numLoopsPerFrame = 16
 numChirpsPerFrame = numTxAntennas * numLoopsPerFrame
 
 numRangeBins = numADCSamples
@@ -43,8 +43,8 @@ numAngleBins = 64
 range_resolution, bandwidth = dsp.range_resolution(numADCSamples)
 doppler_resolution = dsp.doppler_resolution(bandwidth)
 
-plotRangeDopp = False  
-plot2DscatterXY = True  
+plotRangeDopp = True
+plot2DscatterXY = False  
 plot2DscatterXZ = False  
 plot3Dscatter = False  
 plotCustomPlt = False
@@ -70,7 +70,7 @@ if __name__ == '__main__':
         print("Using Custom Plotting")
 
 
-
+    dca.send_start_command()
     while True:
         # (1) Reading in adc data
         adc_data = dca.read()
@@ -83,7 +83,7 @@ if __name__ == '__main__':
         numChirpsPerFrame, numRxAntennas, numADCSamples), "[ERROR] Radar cube is not the correct shape!"
 
         # (3) Doppler Processing 
-        det_matrix, aoa_input = dsp.doppler_processing(radar_cube, num_tx_antennas=3, clutter_removal_enabled=True)
+        det_matrix, aoa_input = dsp.doppler_processing(radar_cube, num_tx_antennas=2, clutter_removal_enabled=True)
 
         # --- Show output
         if plotRangeDopp:
@@ -91,6 +91,7 @@ if __name__ == '__main__':
             plt.imshow(det_matrix_vis / det_matrix_vis.max())
             plt.pause(0.05)
             plt.clf()
+            continue
 
         # (4) Object Detection
         # --- CFAR, SNR is calculated as well.
